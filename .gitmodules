@@ -1,0 +1,6 @@
+[submodule "flamebucketmanager"]
+	path = flamebucketmanager
+	url = https://github.com/nostrocket/flamebucketmanager.git
+[submodule "nostr-rs-relay"]
+	path = nostr-rs-relay
+	url = https://github.com/scsibug/nostr-rs-relay.git

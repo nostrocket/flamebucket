@@ -5,17 +5,21 @@ then
     curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
     exit
 fi
+rustup update
 if [[ "$OSTYPE" == "linux-gnu"* ]]; then
         echo "linux"# ...
 elif [[ "$OSTYPE" == "darwin"* ]]; then
-	echo "osx"        # Mac OSX
+	echo "OSX detected, this must be a local development machine"
 	if ! command -v brew &> /dev/null
 	then
-	    echo "brew could not be found, installing rust now..."
+	    echo "brew could not be found, installing now..."
 	    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 	    exit
 	fi
 	brew install protobuf
+#	brew install haproxy
+#	brew services start haproxy
+#	brew install certbot
 elif [[ "$OSTYPE" == "cygwin" ]]; then
 echo "cygwin"        # POSIX compatibility layer and Linux environment emulation for Windows
 elif [[ "$OSTYPE" == "msys" ]]; then
@@ -25,7 +29,17 @@ echo "bsd"        # ...
 else
 echo "wtf"        # Unknown.
 fi
-git pull
 git submodule update --init --recursive
+git pull
+cd flamebucketmanager || exit 1
+cargo build -r
+if test -f "./target/release/manage_relay_users"; then
+  exit 1
+fi
+cd ../nostr-rs-relay || exit 1
+cargo build -r
+if test -f "./target/release/nostr-rs-relay"; then
+  exit 1
+fi
 
 echo "done"

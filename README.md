@@ -5,6 +5,6 @@ Relays that can take the heat
 ```
 git clone https://github.com/nostrocket/flamebucket.git
 cd flamebucket
-./install
-./start
+./install.sh
+./start.sh
 ```

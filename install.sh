@@ -7,7 +7,12 @@ then
 fi
 rustup update
 if [[ "$OSTYPE" == "linux-gnu"* ]]; then
-        echo "linux"# ...
+#        echo "linux, maybe debian/ubuntu. Trying to install protobuf, this will ask you for your password"
+#        sudo apt-get install -y protobuf-compiler
+    PB_REL="https://github.com/protocolbuffers/protobuf/releases"
+    curl -LO $PB_REL/download/v3.15.8/protoc-3.15.8-linux-x86_64.zip
+    unzip protoc-3.15.8-linux-x86_64.zip -d $HOME/.local
+    export PATH="$PATH:$HOME/.local/bin"
 elif [[ "$OSTYPE" == "darwin"* ]]; then
 	echo "OSX detected, this must be a local development machine"
 	if ! command -v brew &> /dev/null

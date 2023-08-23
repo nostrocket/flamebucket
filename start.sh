@@ -1,3 +1,4 @@
+export PATH="$PATH:$HOME/.local/bin" #if manually installed protobuf
 tmux new-session -d bash
 tmux split-window -h bash
 tmux send -t 0:0.0 "./start_manager.sh" C-m

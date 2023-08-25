@@ -35,7 +35,7 @@ echo "bsd"        # ...
 else
 echo "wtf"        # Unknown.
 fi
-git submodule update --init --recursive
+git submodule update --init --recursive --remote
 git pull
 cd flamebucketmanager || exit 1
 cargo build -r

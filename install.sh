@@ -35,9 +35,12 @@ echo "bsd"        # ...
 else
 echo "wtf"        # Unknown.
 fi
-git submodule update --init --recursive --remote
+git stash
 git pull
+git submodule update --init --recursive --remote
 cd flamebucketmanager || exit 1
+git stash
+git pull
 cargo build -r
 if ! test -f "./target/release/manage_relay_users"; then
   echo "failed to compile"
@@ -45,6 +48,8 @@ if ! test -f "./target/release/manage_relay_users"; then
 fi
 echo "relay manager has compiled successfully"
 cd ../nostr-rs-relay || exit 1
+git stash
+git pull
 cargo build -r
 if ! test -f "./target/release/nostr-rs-relay"; then
   echo "failed to compile"
